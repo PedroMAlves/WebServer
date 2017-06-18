@@ -26,11 +26,9 @@ public class RequestHandler implements Runnable {
     private void handleRequest() throws IOException {
         System.out.println(clientSocket.getRemoteSocketAddress());
         BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-        DataOutputStream write = new DataOutputStream(clientSocket.getOutputStream());
         String str = in.readLine();
         String[] s;
         if (str == null || str.isEmpty()) {
-            write.writeBytes(Headers.BADREQUEST.getHeaderContent());
             closeClientSocket();
         } else {
             s = str.split(" ");
@@ -41,6 +39,7 @@ public class RequestHandler implements Runnable {
             if (s.length > 1) {
                 getRequested(s[1]);
             } else {
+                DataOutputStream write = new DataOutputStream(clientSocket.getOutputStream());
                 write.writeBytes(Headers.BADREQUEST.getHeaderContent());
                 closeClientSocket();
             }
