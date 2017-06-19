@@ -56,7 +56,7 @@ public class RequestHandler implements Runnable {
             sendPage("/404.html", Headers.NOTFOUND);
             return;
         }
-        if (str.endsWith(".ico") || str.endsWith(".png") || str.endsWith(".jpg")) {
+        if (str.endsWith(".ico") || str.endsWith(".png") || str.endsWith(".jpg") || str.endsWith(".jar")) {
             sendImage(str);
             return;
         }
